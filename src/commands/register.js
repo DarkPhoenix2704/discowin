@@ -14,13 +14,11 @@ module.exports = async (client, message) => {
                 return
             }
             let pinCode = data[1]
-            console.log(pinCode)
             if (pinCode.length > 6 || pinCode.length < 6) {
                 message.reply('Enter a valid Pincode!!')
                 return
             }
             let fortyFivePlus = data[2]
-            console.log(fortyFivePlus)
             if (fortyFivePlus !== 'true' && fortyFivePlus !== 'false') {
                 message.reply('Use  true or false for fortyFivePlus field')
                 return

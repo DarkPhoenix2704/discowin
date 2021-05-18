@@ -10,7 +10,7 @@ module.exports = async (client, message) => {
             console.log(`Deleted Record with id ${guild.id}`)
             message.reply('You have been unSubscribed Successfully')
         } finally {
-            mongoose.connection.close()
+            await mongoose.connection.close()
         }
     })
 }
