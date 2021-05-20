@@ -25,3 +25,4 @@ client.on('ready', async () => {
     client.login(process.env.BOT_TOKEN).then(() => {
         console.log(`${client.user.username}:- LoggedIn`)
     })
+}
