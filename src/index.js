@@ -2,21 +2,26 @@
 require('dotenv').config()
 const Discord = require('discord.js')
 const cron = require('node-cron')
-
 const welcome = require('./welcome')
 const command = require('./command')
-const updateDistrict = require('./updateDistrictData')
+const updateDistrict = require('./updateData/updateDistrictData')
+const updateVaccineAvailability = require('./updateData/updateVaccineAvailability')
 
 const client = new Discord.Client()
 
 client.on('ready', async () => {
-    console.log(`${client.user.username} has logged In`)
     welcome(client)
     command(client)
     cron.schedule('0 0 * * *', async () => {
         await updateDistrict()
         console.log('District Table is updated')
     })
-})
+    cron.schedule('5 * * * *', async () => {
+        await updateVaccineAvailability(client)
+        console.log('Vaccine availability Updated')
 
-client.login(process.env.BOT_TOKEN)
+    })
+
+    client.login(process.env.BOT_TOKEN).then(() => {
+        console.log(`${client.user.username}:- LoggedIn`)
+    })

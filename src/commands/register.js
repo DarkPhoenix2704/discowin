@@ -9,18 +9,20 @@ module.exports = async (client, message) => {
             let data = content.split(' ')
             if (data.length < 4 || data.length > 4) {
                 console.log('Invalid Input');
-                message.reply('Enter data in the below mentioned format \n /register pincode fortyFivePlus district' +
-                    '\n Example :  /register 682354 true Ernakulam')
+                message.reply('Enter data in the below mentioned format \n /register Pincode Age District' +
+                    '\n Example :  /register 682354 18 Ernakulam')
                 return
             }
             let pinCode = data[1]
             if (pinCode.length > 6 || pinCode.length < 6) {
-                message.reply('Enter a valid Pincode!!')
+                console.log('Invalid Input');
+                message.reply('Enter data in the below mentioned format \n /register Pincode Age District' +
+                    '\n Example :  /register 682354 18 Ernakulam')
                 return
             }
-            let fortyFivePlus = data[2]
-            if (fortyFivePlus !== 'true' && fortyFivePlus !== 'false') {
-                message.reply('Use  true or false for fortyFivePlus field')
+            let age = parseInt(data[2])
+            if (age < 0) {
+                message.reply('Enter your Age!!')
                 return
             }
             let district = data[3]
@@ -29,8 +31,8 @@ module.exports = async (client, message) => {
                 {
                     _id: guild.id,
                     pinCode: parseInt(pinCode),
-                    fortyFivePlus: fortyFivePlus,
-                    districtId: district
+                    age: age,
+                    district_name: district
                 }, {
                     upsert: true
                 }
@@ -38,10 +40,11 @@ module.exports = async (client, message) => {
             message.reply('You have Successfully subscribed to Cowin notifications' +
                 '\n You will be informed about vaccine availability in your region' +
                 '\n Thank You for using DisCowin')
-            console.log(`Data Updated Successfully : ${guild.id}  ${pinCode}  ${fortyFivePlus}  ${district}`)
+            console.log(`Data Updated Successfully : ${guild.id}  ${pinCode}  ${age}  ${district}`)
 
         } finally {
             mongoose.connection.close().then(r => console.log(r))
+            console.log('Mongoose:- Connection Closed')
         }
     })
 }

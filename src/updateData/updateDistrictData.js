@@ -1,13 +1,13 @@
-const mongo = require('./mongo')
-const districtSchema = require('./schema/districtSchema')
+const mongo = require('../mongo')
+const districtSchema = require('../schema/districtSchema')
 const axios = require('axios');
-const fetch = require("node-fetch");
 
 const url = 'https://cdn-api.co-vin.in/api/v2/admin/location/districts/17'
 
 
 module.exports = async () => {
     let data;
+    console.log(`Request URl:- ${url}`)
     await axios.get(url, {
         headers: {
             'User-Agent':
@@ -18,8 +18,10 @@ module.exports = async () => {
         await mongo().then(async mongoose => {
             try {
                 await districtSchema.deleteMany({})
+                console.log('District List has been deleted')
                 const districtArray = data.districts
                 for (let i = 0; i < districtArray.length; i++) {
+                    console.log(`Adding Data:- ${districtArray[i].district_id}  ${districtArray[i].district_name}`)
                     await districtSchema.findOneAndUpdate({_id: districtArray[i].district_id}, {
                         _id: districtArray[i].district_id,
                         district_name: districtArray[i].district_name
@@ -28,7 +30,9 @@ module.exports = async () => {
                     })
                 }
             } finally {
-                await mongoose.connection.close()
+                await mongoose.connection.close().then(() => {
+                    console.log('Mongoose:- Connection Closed')
+                })
             }
         })
     })
