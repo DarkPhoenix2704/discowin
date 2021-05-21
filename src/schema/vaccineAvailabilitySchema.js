@@ -8,8 +8,7 @@ const vaccineAvailabilitySchema = new mongoose.Schema({
     min_age_limit: {type: Number, required: true},
     fee_type: {type: String, required: true},
     fee: {type: Number},
+    available_capacity: {type: Number, required: true},
     date: {type: String, required: true}
-
-
 })
 module.exports = mongoose.model('vaccineAvailability', vaccineAvailabilitySchema)

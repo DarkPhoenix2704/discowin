@@ -6,12 +6,14 @@ const welcome = require('./welcome')
 const command = require('./command')
 const updateDistrict = require('./updateData/updateDistrictData')
 const updateVaccineAvailability = require('./updateData/updateVaccineAvailability')
-
+const notifyUsers = require('./notifyUsers')
 const client = new Discord.Client()
-
 client.on('ready', async () => {
     welcome(client)
     command(client)
+    await updateDistrict()
+    await updateVaccineAvailability(client)
+    await notifyUsers(client)
     cron.schedule('0 0 * * *', async () => {
         await updateDistrict()
         console.log('District Table is updated')
@@ -21,8 +23,7 @@ client.on('ready', async () => {
         console.log('Vaccine availability Updated')
 
     })
-
-    client.login(process.env.BOT_TOKEN).then(() => {
-        console.log(`${client.user.username}:- LoggedIn`)
-    })
+})
+client.login(process.env.BOT_TOKEN).then(() => {
+    console.log(`${client.user.username}:- LoggedIn`)
 })

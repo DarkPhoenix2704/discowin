@@ -3,7 +3,7 @@ const userSchema = require('../schema/userSchema')
 
 
 module.exports = async (client, message) => {
-    const {content, guild} = message
+    const {content, guild, author} = message
     await mongo().then(async mongoose => {
         try {
             let data = content.split(' ')
@@ -27,9 +27,10 @@ module.exports = async (client, message) => {
             }
             let district = data[3]
             await userSchema.findOneAndUpdate(
-                {_id: guild.id},
+                {_id: author.id},
                 {
-                    _id: guild.id,
+                    _id: author.id,
+                    guild_id: guild.id,
                     pinCode: parseInt(pinCode),
                     age: age,
                     district_name: district

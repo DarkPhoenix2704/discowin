@@ -2,6 +2,7 @@ const mongo = require('../mongo')
 const districtSchema = require('../schema/districtSchema')
 const userSchema = require('../schema/userSchema')
 const vaccineSchema = require('../schema/vaccineAvailabilitySchema')
+const notifyUsers = require('../notifyUsers')
 const axios = require('axios')
 let baseUrl = 'https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id='
 
@@ -36,26 +37,33 @@ module.exports = async client => {
                     let sessionData = value.data.sessions
                     await vaccineSchema.deleteMany({})
                     for (i = 0; i < sessionData.length; i++) {
-                        await vaccineSchema.findOneAndUpdate({
-                            _id: sessionData[i].center_id
-                        }, {
-                            _id: sessionData[i].center_id,
-                            district_name: district.district_name,
-                            name: sessionData[i].name,
-                            vaccine: sessionData[i].vaccine,
-                            min_age_limit: sessionData[i].min_age_limit,
-                            fee_type: sessionData[i].fee_type,
-                            fee: sessionData[i].fee,
-                            date: sessionData[i].date
-                        }, {
-                            upsert: true
-                        })
+                        if (sessionData[i].available_capacity !== 0) {
+                            await vaccineSchema.findOneAndUpdate({
+                                _id: sessionData[i].center_id
+                            }, {
+                                _id: sessionData[i].center_id,
+                                district_name: district.district_name,
+                                name: sessionData[i].name,
+                                vaccine: sessionData[i].vaccine,
+                                min_age_limit: sessionData[i].min_age_limit,
+                                fee_type: sessionData[i].fee_type,
+                                fee: sessionData[i].fee,
+                                available_capacity: sessionData[i].available_capacity,
+                                date: sessionData[i].date
+                            }, {
+                                upsert: true
+                            })
+                        }
+
                     }
+                }, err => {
+                    console.log(err)
                 })
 
             }
         } finally {
             await mongoose.connection.close()
+
         }
 
     })
