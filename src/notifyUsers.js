@@ -25,20 +25,29 @@ module.exports = async client => {
             })
 
             for (let i = 0; i < subscribedUserList.length; i++) {
-                await vaccineAvailabilitySchema.find({district_name: subscribedUserList[i].district_name}, (err, data) => {
+                await vaccineAvailabilitySchema.find({
+                    min_age_limit: getAge(subscribedUserList[i].age),
+                    district_name: subscribedUserList[i].district_name
+                }, (err, data) => {
                     availableVaccineList = data
                 })
                 if (availableVaccineList.length === 0) {
                     continue
                 }
-                const channel = client.channels.cache.get('839451838452989976')
-                channel.send('<@' + subscribedUserList[i]._id + '>  ' + 'availableVaccineList')
+                const channel = client.channels.cache.get(process.env.CHANNEL_ID)
+                let message = `<@${subscribedUserList[i]._id}> \n`
+                message = message + `Date\tLocation\tVaccine\tAvailableVaccine\tFeeType\n`
+                for (let j = 0; j < availableVaccineList.length; j++) {
+                    const {date, name, vaccine, available_capacity, fee_type} = availableVaccineList[j]
+                    message = message + `${date}\t${name}\t${vaccine}\t${available_capacity}\t${fee_type}\n`
+                }
+                channel.send(message)
 
             }
 
-            console.log(availableVaccineList)
         } finally {
             await mongoose.connection.close()
+            console.log('Users Notified About Vaccine Availability')
         }
     })
 }
@@ -52,4 +61,12 @@ function findObjectByKey(array, key, value) {
         }
     }
     return null;
+}
+
+function getAge(age) {
+    if (age >= 18 && age < 45) {
+        return 18
+    } else if (age >= 45) {
+        return 45
+    }
 }

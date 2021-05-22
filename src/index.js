@@ -13,14 +13,13 @@ client.on('ready', async () => {
     command(client)
     await updateDistrict()
     await updateVaccineAvailability(client)
-    await notifyUsers(client)
     cron.schedule('0 0 * * *', async () => {
         await updateDistrict()
         console.log('District Table is updated')
     })
     cron.schedule('5 * * * *', async () => {
         await updateVaccineAvailability(client)
-        console.log('Vaccine availability Updated')
+
 
     })
 })

@@ -13,12 +13,12 @@ let subscribedUserList;
 module.exports = async client => {
     await mongo().then(async mongoose => {
         try {
-            await userSchema.find({}, (err, data) => {
+            await userSchema.find({}, async (err, data) => {
                 if (err) console.log(err)
                 subscribedUserList = data
             })
 
-            await districtSchema.find({}, (err, data) => {
+            await districtSchema.find({}, async (err, data) => {
                 if (err) console.log(err)
                 districtList = data
             })
@@ -63,6 +63,8 @@ module.exports = async client => {
             }
         } finally {
             await mongoose.connection.close()
+            console.log('Vaccine availability Updated')
+            await notifyUsers(client)
 
         }
 
@@ -70,10 +72,13 @@ module.exports = async client => {
 }
 
 function findObjectByKey(array, key, value) {
-    for (let i = 0; i < array.length; i++) {
-        if (array[i][key] === value) {
-            return array[i]
+    if (array !== undefined) {
+        for (let i = 0; i < array.length; i++) {
+            if (array[i][key] === value) {
+                return array[i]
+            }
         }
+        return null
     }
     return null;
 }
