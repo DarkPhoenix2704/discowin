@@ -6,7 +6,7 @@ const welcome = require('./welcome')
 const command = require('./command')
 const updateDistrict = require('./updateData/updateDistrictData')
 const updateVaccineAvailability = require('./updateData/updateVaccineAvailability')
-const notifyUsers = require('./notifyUsers')
+
 const client = new Discord.Client()
 client.on('ready', async () => {
     welcome(client)

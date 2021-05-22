@@ -12,7 +12,7 @@ module.exports = client => {
                     register(client, message)
                     break
                 case '/checknow':
-                    checkNow(client, message)
+                    checkNow(client)
                     break
                 case '/unregister':
                     unRegister(client, message)
