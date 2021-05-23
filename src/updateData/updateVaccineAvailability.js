@@ -23,10 +23,10 @@ module.exports = async client => {
                 districtList = data
             })
             for (let i = 0; i < subscribedUserList.length; i++) {
-                let district = subscribedUserList[i]
-                const id = await findObjectByKey(districtList, 'district_name', district.district_name)._id
+                let user = subscribedUserList[i]
+                const district = await findObjectByKey(districtList, 'district_name', user.district_name)
                 let date = getDate()
-                let requestUrl = baseUrl + id + '&date=' + date
+                let requestUrl = baseUrl + district._id + '&date=' + date
                 console.log(requestUrl)
                 await axios.get(requestUrl, {
                     headers: {
@@ -35,21 +35,20 @@ module.exports = async client => {
                     }
                 }).then(async value => {
                     let sessionData = value.data.sessions
-                    await vaccineSchema.deleteMany({})
-                    for (i = 0; i < sessionData.length; i++) {
-                        if (sessionData[i].available_capacity !== 0) {
+                    for (let j = 0; j < sessionData.length; j++) {
+                        if (sessionData[j].available_capacity !== 0) {
                             await vaccineSchema.findOneAndUpdate({
-                                _id: sessionData[i].center_id
+                                _id: sessionData[j].center_id
                             }, {
-                                _id: sessionData[i].center_id,
+                                _id: sessionData[j].center_id,
                                 district_name: district.district_name,
-                                name: sessionData[i].name,
-                                vaccine: sessionData[i].vaccine,
-                                min_age_limit: sessionData[i].min_age_limit,
-                                fee_type: sessionData[i].fee_type,
-                                fee: sessionData[i].fee,
-                                available_capacity: sessionData[i].available_capacity,
-                                date: sessionData[i].date
+                                name: sessionData[j].name,
+                                vaccine: sessionData[j].vaccine,
+                                min_age_limit: sessionData[j].min_age_limit,
+                                fee_type: sessionData[j].fee_type,
+                                fee: sessionData[j].fee,
+                                available_capacity: sessionData[j].available_capacity,
+                                date: sessionData[j].date
                             }, {
                                 upsert: true
                             })

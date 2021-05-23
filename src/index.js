@@ -11,7 +11,7 @@ const client = new Discord.Client()
 client.on('ready', async () => {
     welcome(client)
     command(client)
-    await updateDistrict()
+    //await updateDistrict()
     await updateVaccineAvailability(client)
     cron.schedule('0 0 * * *', async () => {
         await updateDistrict()
@@ -19,10 +19,10 @@ client.on('ready', async () => {
     })
     cron.schedule('5 * * * *', async () => {
         await updateVaccineAvailability(client)
-
-
     })
+
 })
+
 client.login(process.env.BOT_TOKEN).then(() => {
     console.log(`${client.user.username}:- LoggedIn`)
 })

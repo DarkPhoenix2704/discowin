@@ -30,18 +30,18 @@ module.exports = async client => {
                     district_name: subscribedUserList[i].district_name
                 }, (err, data) => {
                     availableVaccineList = data
+                    console.log(`Vaccines available in ${subscribedUserList[i].district_name} :- ${availableVaccineList.length}`)
                 })
                 if (availableVaccineList.length === 0) {
                     continue
                 }
-                const channel = client.channels.cache.get(process.env.CHANNEL_ID)
-                let message = `<@${subscribedUserList[i]._id}> \n`
+                let message = `Nearby Available Vaccination Centres \n\n`
                 message = message + `Date\tLocation\tVaccine\tAvailableVaccine\tFeeType\n`
                 for (let j = 0; j < availableVaccineList.length; j++) {
                     const {date, name, vaccine, available_capacity, fee_type} = availableVaccineList[j]
                     message = message + `${date}\t${name}\t${vaccine}\t${available_capacity}\t${fee_type}\n`
                 }
-                channel.send(message)
+                client.users.cache.get(subscribedUserList[i]._id).send(message)
 
             }
 

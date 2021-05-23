@@ -7,31 +7,22 @@ module.exports = async (client, message) => {
     await mongo().then(async mongoose => {
         try {
             let data = content.split(' ')
-            if (data.length < 4 || data.length > 4) {
+            if (data.length < 3 || data.length > 3) {
                 console.log('Invalid Input');
-                message.reply('Enter data in the below mentioned format \n /register Pincode Age District' +
-                    '\n Example :  /register 682354 18 Ernakulam')
+                message.reply('Enter data in the below mentioned format \n /register Age District' +
+                    '\n Example :  /register 18 Ernakulam')
                 return
             }
-            let pinCode = data[1]
-            if (pinCode.length > 6 || pinCode.length < 6) {
-                console.log('Invalid Input');
-                message.reply('Enter data in the below mentioned format \n /register Pincode Age District' +
-                    '\n Example :  /register 682354 18 Ernakulam')
-                return
-            }
-            let age = parseInt(data[2])
+            let age = parseInt(data[1])
             if (age < 0) {
                 message.reply('Enter your Age!!')
                 return
             }
-            let district = data[3]
+            let district = data[2]
             await userSchema.findOneAndUpdate(
                 {_id: author.id},
                 {
                     _id: author.id,
-                    guild_id: guild.id,
-                    pinCode: parseInt(pinCode),
                     age: age,
                     district_name: district
                 }, {
@@ -41,7 +32,7 @@ module.exports = async (client, message) => {
             message.reply('You have Successfully subscribed to Cowin notifications' +
                 '\n You will be informed about vaccine availability in your region' +
                 '\n Thank You for using DisCowin')
-            console.log(`Data Updated Successfully : ${guild.id}  ${pinCode}  ${age}  ${district}`)
+            console.log(`Data Updated Successfully : ${guild.id}    ${age}  ${district}`)
 
         } finally {
             mongoose.connection.close().then(r => console.log(r))
