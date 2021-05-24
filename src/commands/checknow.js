@@ -32,19 +32,25 @@ module.exports = async (client, message) => {
 
                 }
             }).then(async value => {
-                    let sessionData = value.data.sessions
-                    if (sessionData.length === 0) {
-                        await message.author.send('Currently Vaccines are not available in nearest Centre')
-                    } else {
-                        let messageData = 'The Vaccines are available in following Places\n'
-                        messageData = messageData + `Date\tLocation\tVaccine\tAvailableVaccine\tFeeType\n`
-                        for (let j = 0; j < sessionData.length; j++) {
-                            const {date, name, vaccine, available_capacity, fee_type} = sessionData[j]
-                            messageData = messageData + `${date}\t${name}\t${vaccine}\t${available_capacity}\t${fee_type}\n`
-                        }
-                        message.author.send(messageData)
-
+                let sessionData = value.data.sessions
+                let availableSessions = []
+                for (let j = 0; j < sessionData.length; j++) {
+                    if (sessionData[j].available_capacity !== 0) {
+                        availableSessions.push(sessionData[j])
                     }
+                }
+                if (availableSessions.length === 0) {
+                    await message.author.send('Currently Vaccines are not available in nearest Centre')
+                } else {
+                    let messageData = 'The Vaccines are available in following Places\n'
+                    messageData = messageData + `Date\tLocation\tVaccine\tAvailableVaccine\tFeeType\n`
+                    for (let j = 0; j < availableSessions.length; j++) {
+                        const {date, name, vaccine, available_capacity, fee_type} = availableSessions[j]
+                        messageData = messageData + `${date}\t${name}\t${vaccine}\t${available_capacity}\t${fee_type}\n`
+                    }
+                    message.author.send(messageData)
+
+                }
                 }
             )
 

@@ -13,6 +13,7 @@ let subscribedUserList;
 module.exports = async client => {
     await mongo().then(async mongoose => {
         try {
+            await vaccineSchema.deleteMany({})
             await userSchema.find({}, async (err, data) => {
                 if (err) console.log(err)
                 subscribedUserList = data

@@ -7,6 +7,13 @@ const url = 'https://cdn-api.co-vin.in/api/v2/admin/location/districts/'
 
 module.exports = async () => {
     let data;
+    await mongo().then(async mongoose => {
+        try {
+            await districtSchema.deleteMany({})
+        } finally {
+            mongoose.connection.close()
+        }
+    })
     for (let i = 1; i <= 37; i++) {
         let requestUrl = url + i
         console.log(`Request URl:- ${requestUrl}`)

@@ -3,7 +3,7 @@ const userSchema = require('../schema/userSchema')
 
 
 module.exports = async (client, message) => {
-    const {content, guild, author} = message
+    const {content, author} = message
     await mongo().then(async mongoose => {
         try {
             let data = content.split(' ')
@@ -32,10 +32,10 @@ module.exports = async (client, message) => {
             message.reply('You have Successfully subscribed to Cowin notifications' +
                 '\n You will be informed about vaccine availability in your region' +
                 '\n Thank You for using DisCowin')
-            console.log(`Data Updated Successfully : ${guild.id}    ${age}  ${district}`)
+            console.log(`Data Updated Successfully : ${author.id}  ${age}  ${district}`)
 
         } finally {
-            mongoose.connection.close().then(r => console.log(r))
+            mongoose.connection.close()
             console.log('Mongoose:- Connection Closed')
         }
     })
