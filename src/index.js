@@ -9,7 +9,7 @@ const updateVaccineAvailability = require('./updateData/updateVaccineAvailabilit
 
 const client = new Discord.Client()
 client.on('ready', async () => {
-    //await updateDistrict()
+    await updateDistrict()
     welcome(client)
     command(client)
     await updateVaccineAvailability(client)
