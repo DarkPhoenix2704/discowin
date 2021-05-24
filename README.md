@@ -46,7 +46,11 @@ Note:- Bue to privacy concern of users, the bot works only in dm
 ```
 /unregister
 ```
-3. To display help
+3. To Check For Vaccines Now
+```
+/checknow
+```
+4. To display help
 ```
 /help
 ```
