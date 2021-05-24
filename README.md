@@ -56,7 +56,7 @@ Note:- Bue to privacy concern of users, the bot works only in dm
 ```
 
 ## How it Works ?
-[Watch Video](https://www.loom.com/share/8f37407ef66941dcbb214ecc61b1bcbf)
+[Watch Video](https://www.loom.com/share/e6d980a9adbb421ca6a29edaf3f6d9c1)
 
 
 
