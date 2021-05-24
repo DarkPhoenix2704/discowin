@@ -36,6 +36,7 @@ npm install
 
 
 ## How to Use
+[Add Bot To The Server](https://discord.com/api/oauth2/authorize?client_id=845267684818944021&permissions=199696&scope=bot)
 Note:- Bue to privacy concern of users, the bot works only in dm
 
 1. To Register/Update details for Cowin Notification
