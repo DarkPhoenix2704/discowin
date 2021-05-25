@@ -59,6 +59,13 @@ Note:- Bue to privacy concern of users, the bot works only in dm
 ## How it Works ?
 [Watch Video](https://www.loom.com/share/e6d980a9adbb421ca6a29edaf3f6d9c1)
 
+## Screenshots
+![alt text](https://i.ibb.co/k60JFCq/start.png)  
+![alt text](https://i.ibb.co/fXRpTgb/register.jpg)   
+![alt text](https://i.ibb.co/Lz4zczX/unregister.jpg)   
+![alt text](https://i.ibb.co/G5z9zpn/checknow.jpg)   
+![alt text](https://i.ibb.co/2ht7gFp/help.jpg)   
+
 
 
 ## Team members
