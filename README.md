@@ -23,6 +23,11 @@ cd discowin
 ```
 npm install
 ```
+4. Update .env
+5. Run the Bot
+```
+node src/index.js
+```
 
 
 ## Libraries used
