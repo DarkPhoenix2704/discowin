@@ -9,6 +9,7 @@ const updateVaccineAvailability = require('./updateData/updateVaccineAvailabilit
 
 const client = new Discord.Client()
 client.on('ready', async () => {
+    client.user.setAvatar('./bot.png')
     await updateDistrict()
     welcome(client)
     command(client)
