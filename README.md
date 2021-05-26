@@ -3,7 +3,7 @@
 
 # DisCowin
 DisCowin is a Discord bot develped by [N Anbarasu](https://www.github.com/darkphoenix2704) and [Ameesha Arackal](https://github.com/AMEESHAARACKAL).
-It checks for Covid Vaccine Availabilityin your region & informs you.It is developed as a part of TinkerHub BUILD FROM HOME.
+It checks for Covid Vaccine Availability in your region & informs you. It is developed as a part of TinkerHub BUILD FROM HOME Event.
 
 
 ## Requirements
@@ -13,7 +13,7 @@ Node.js v12.0 or Higher
 ## How to configure
 1. Clone the Project  
 ```
-git clone -b main https://github.com/DarkPhoenix2704/discowin
+git clone -b main https://github.com/DarkPhoenix2704/discowin.git
 ```
 2. Go to Project directory
 ```
@@ -42,7 +42,7 @@ node src/index.js
 
 ## How to Use
 Add [Bot](https://discord.com/api/oauth2/authorize?client_id=845267684818944021&permissions=199696&scope=bot) to the Server  
-Note:- Bue to privacy concern of users, the bot works only in dm
+Note:- Due to privacy concern of users, the bot works only in dm
 
 1. To Register/Update details for Cowin Notification
 ```
