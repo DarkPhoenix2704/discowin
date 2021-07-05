@@ -1,5 +1,6 @@
 ![BFH Banner](https://trello-attachments.s3.amazonaws.com/542e9c6316504d5797afbfb9/542e9c6316504d5797afbfc1/39dee8d993841943b5723510ce663233/Frame_19.png)
 
+# This code is no longer maintained and migrated to [here](https://github.com/darkphoenix2704/discowin-reimagined)
 
 # DisCowin
 DisCowin is a Discord bot develped by [N Anbarasu](https://www.github.com/darkphoenix2704) and [Ameesha Arackal](https://github.com/AMEESHAARACKAL).
